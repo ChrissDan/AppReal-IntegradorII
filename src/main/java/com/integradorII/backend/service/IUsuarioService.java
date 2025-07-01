@@ -10,4 +10,5 @@ public interface IUsuarioService {
     List<Usuario> listarUsuarios();
     Optional<Usuario> buscarPorId(Long id);
     Optional<Usuario> buscarPorUsername(String username);
+    void eliminarUsuario(Long id);
 }

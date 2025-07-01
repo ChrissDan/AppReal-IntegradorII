@@ -36,5 +36,11 @@ public class UsuarioService implements IUsuarioService {
     public Optional<Usuario> buscarPorUsername(String username) {
         return usuarioRepository.findByUsername(username);
     }
+
+    @Override
+    public void eliminarUsuario(Long id) {
+        usuarioRepository.deleteById(id);
+    }
+
 }
 

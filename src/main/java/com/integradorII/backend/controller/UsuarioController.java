@@ -39,6 +39,23 @@ public class UsuarioController {
         return usuarioService.buscarPorUsername(username);
     }
 
+    @PutMapping("/{id}")
+    public Usuario actualizar(@PathVariable Long id, @RequestBody Usuario actualizado) {
+        return usuarioService.buscarPorId(id).map(usuario -> {
+            usuario.setNombre(actualizado.getNombre());
+            usuario.setApellido(actualizado.getApellido());
+            usuario.setCodigoEmpleado(actualizado.getCodigoEmpleado());
+            usuario.setUsername(actualizado.getUsername());
+            usuario.setRol(actualizado.getRol());
+            return usuarioService.guardarUsuario(usuario);
+        }).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    }
+
+    @DeleteMapping("/{id}")
+    public void eliminar(@PathVariable Long id) {
+        usuarioService.eliminarUsuario(id);
+    }
+
     // ✅ Validar código de empleado (nuevo)
     @GetMapping("/validar-codigo/{codigoEmpleado}")
     public Map<String, Boolean> validarCodigoEmpleado(@PathVariable String codigoEmpleado) {
