@@ -1,6 +1,7 @@
 package com.integradorII.backend.service;
 
 import com.integradorII.backend.model.Falla;
+import com.integradorII.backend.model.Usuario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.integradorII.backend.repository.FallaRepository;
@@ -55,5 +56,7 @@ public class FallaService implements IFallaService {
     public List<Falla> filtrarPorFecha(LocalDateTime inicio, LocalDateTime fin) {
         return fallaRepository.findByFechaRegistroBetween(inicio, fin);
     }
+
+
 }
 

@@ -1,6 +1,7 @@
 package com.integradorII.backend.service;
 
 import com.integradorII.backend.model.Falla;
+import com.integradorII.backend.model.Usuario;
 
 import java.time.LocalDateTime;
 import java.util.List;

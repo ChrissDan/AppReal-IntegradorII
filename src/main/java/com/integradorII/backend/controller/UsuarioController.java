@@ -1,5 +1,6 @@
 package com.integradorII.backend.controller;
 
+import com.integradorII.backend.model.Rol;
 import com.integradorII.backend.model.Usuario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -59,6 +60,14 @@ public class UsuarioController {
         Map<String, Boolean> respuesta = new HashMap<>();
         respuesta.put("existe", usuario.isPresent());
         return respuesta;
+    }
+
+    @GetMapping("/tecnicos")
+    public List<Usuario> listarTecnicos() {
+        return usuarioService.listarUsuarios()
+                .stream()
+                .filter(u -> u.getRol() == Rol.TECNICO)
+                .toList();
     }
 }
 

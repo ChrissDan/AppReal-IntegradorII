@@ -31,7 +31,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/fallas/**").hasAnyRole("JEFE", "SUPERVISOR")
+                        .requestMatchers("/fallas/**").hasAnyRole("JEFE", "SUPERVISOR", "TECNICO")
                         .requestMatchers("/secciones/**").hasAnyRole("JEFE", "SUPERVISOR")
                         .requestMatchers("/maquinas/**").hasAnyRole("JEFE", "SUPERVISOR")
                         .requestMatchers("/tecnicos/**").hasRole("JEFE")

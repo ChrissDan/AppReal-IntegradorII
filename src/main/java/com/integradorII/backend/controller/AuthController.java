@@ -34,7 +34,13 @@ public class AuthController {
                     .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
             String rol = user.getRol().name(); // JEFE, SUPERVISOR, TECNICO
-            String token = jwtUtil.generateToken(user.getUsername(), rol, user.getId());
+            String token = jwtUtil.generateToken(
+                    user.getUsername(),
+                    rol,
+                    user.getId(),
+                    user.getNombre(),
+                    user.getApellido()
+                    );
 
             return new AuthResponse(token);
 

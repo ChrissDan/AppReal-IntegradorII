@@ -1,0 +1,53 @@
+@startuml
+title Diagrama UML - Modelo de Averías
+
+' Enumeraciones
+enum Rol {
+  JEFE
+  SUPERVISOR
+  TECNICO
+}
+
+enum EstadoFalla {
+  PENDIENTE
+  EN_PROCESO
+  RESUELTO
+}
+
+' Clases
+class Usuario {
+  Long id
+  String nombre
+  String apellido
+  String codigoEmpleado
+  String username
+  String password
+  Rol rol
+}
+
+class Seccion {
+  Long id
+  String nombre
+}
+
+class Maquina {
+  Long id
+  String nombre
+}
+
+class Falla {
+  Long id
+  String descripcion
+  LocalDateTime fechaRegistro
+  LocalDateTime fechaActualizacion
+  EstadoFalla estado
+}
+
+' Relaciones
+Maquina --> Seccion : pertenece a
+Falla --> Seccion : se registra en
+Falla --> Maquina : ocurre en
+Falla --> Usuario : supervisorProduccion
+Falla --> Usuario : tecnicoMantenimiento
+
+@enduml

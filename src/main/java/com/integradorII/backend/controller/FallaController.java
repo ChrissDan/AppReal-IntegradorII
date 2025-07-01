@@ -1,5 +1,6 @@
 package com.integradorII.backend.controller;
 
+import com.integradorII.backend.model.EstadoFalla;
 import lombok.RequiredArgsConstructor;
 import com.integradorII.backend.model.Falla;
 import org.springframework.web.bind.annotation.*;
@@ -7,6 +8,7 @@ import com.integradorII.backend.service.IFallaService;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/fallas")
@@ -25,8 +27,10 @@ public class FallaController {
     public Falla actualizar(@PathVariable Long id, @RequestBody Falla actualizada) {
         return fallaService.buscarPorId(id).map(falla -> {
             falla.setDescripcion(actualizada.getDescripcion());
+            falla.setSeccion(actualizada.getSeccion());
+            falla.setMaquina(actualizada.getMaquina());
             falla.setEstado(actualizada.getEstado());
-            falla.setFechaActualizacion(LocalDateTime.now());
+            falla.setFechaActualizacion(actualizada.getFechaActualizacion());
             falla.setTecnicoMantenimiento(actualizada.getTecnicoMantenimiento());
             return fallaService.registrarFalla(falla);
         }).orElseThrow(() -> new RuntimeException("Falla no encontrada"));
@@ -58,5 +62,20 @@ public class FallaController {
         LocalDateTime fin = LocalDateTime.parse(hasta);
         return fallaService.filtrarPorFecha(inicio, fin);
     }
+
+    @GetMapping("/pendientes")
+    public List<Falla> listarPendientes() {
+        return fallaService.listarTodas().stream()
+                .filter(f -> f.getEstado() == EstadoFalla.PENDIENTE)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/enProceso")
+    public List<Falla> listarEnProceso() {
+        return fallaService.listarTodas().stream()
+                .filter(f -> f.getEstado() == EstadoFalla.EN_PROCESO)
+                .collect(Collectors.toList());
+    }
+
 }
 
