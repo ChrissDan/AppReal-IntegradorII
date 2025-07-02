@@ -1,4 +1,4 @@
-package com.integradorII.backend.Config;
+/*package com.integradorII.backend.Config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
@@ -14,5 +14,5 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedHeaders("*")
                 .allowCredentials(true);
     }
-}
+}*/
 
