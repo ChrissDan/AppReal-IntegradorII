@@ -86,5 +86,16 @@ public class UsuarioController {
                 .filter(u -> u.getRol() == Rol.TECNICO)
                 .toList();
     }
+
+    @PutMapping("/{id}/password")
+    public Usuario actualizarPassword(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        String nuevaPassword = body.get("password");
+        Usuario user = usuarioService.buscarPorId(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        user.setPassword(nuevaPassword); // ya encriptada si tu service la encripta
+        return usuarioService.guardarUsuario(user);
+    }
+
 }
 
