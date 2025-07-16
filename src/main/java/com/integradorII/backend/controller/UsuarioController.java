@@ -93,7 +93,7 @@ public class UsuarioController {
         Usuario user = usuarioService.buscarPorId(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        user.setPassword(nuevaPassword); // ya encriptada si tu service la encripta
+        user.setPassword(nuevaPassword);
         return usuarioService.guardarUsuario(user);
     }
 

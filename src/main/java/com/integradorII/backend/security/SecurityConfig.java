@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/").permitAll() // 👈 agrega esta línea
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/fallas/**").hasAnyRole("JEFE", "SUPERVISOR", "TECNICO")
                         .requestMatchers("/secciones/**").hasAnyRole("JEFE", "SUPERVISOR")
@@ -57,7 +58,8 @@ public class SecurityConfig {
         // 👇 Cambia esto según la IP de tu laptop
         configuration.setAllowedOrigins(Arrays.asList(
                 "http://localhost:3000", // Para pruebas locales
-                "http://192.168.1.75:3000" // IP de tu laptop + puerto del frontend
+                "https://mantenimiento-iberica-5ae73.web.app", // IP de tu laptop + puerto del frontend
+                "https://mantenimiento-iberica-5ae73.firebaseapp.com/"
         ));
 
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
